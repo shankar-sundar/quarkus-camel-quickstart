@@ -26,6 +26,7 @@ COPY pom.xml .
 RUN mvn dependency:go-offline
 
 COPY src src
+COPY misc misc
 RUN mvn package -Dmaven.test.skip=true
 
 RUN grep version /build/target/maven-archiver/pom.properties | cut -d '=' -f2 >.env-version
