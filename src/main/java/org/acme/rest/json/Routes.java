@@ -16,6 +16,10 @@
  */
 package org.acme.rest.json;
 
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
 
@@ -23,10 +27,30 @@ import org.apache.camel.model.rest.RestBindingMode;
  * Camel route definitions.
  */
 public class Routes extends RouteBuilder {
+    private final Set<Fruit> fruits = Collections.synchronizedSet(new LinkedHashSet<>());
+
+    public Routes() {
+
+        /* Let's add some initial fruits */
+        this.fruits.add(new Fruit("Apple", "Winter fruit"));
+        this.fruits.add(new Fruit("Pineapple", "Tropical fruit"));
+    }
+
     @Override
     public void configure() throws Exception {
 
         restConfiguration().bindingMode(RestBindingMode.json);
+
+        rest("/fruits")
+                .get()
+                .to("direct:getFruits")
+
+                .post()
+                .type(Fruit.class)
+                .to("direct:addFruit");
+
+        from("direct:getFruits")
+                .setBody().constant(fruits);
 
         rest("/users")
                 .get()
