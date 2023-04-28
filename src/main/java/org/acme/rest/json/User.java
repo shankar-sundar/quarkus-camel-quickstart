@@ -1,4 +1,5 @@
 package org.acme.rest.json;
+
 import java.util.Objects;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;

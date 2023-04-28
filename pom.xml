@@ -27,6 +27,7 @@
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
     <quarkus.platform.version>2.16.0.Final</quarkus.platform.version>
+    <maven.multiModuleProjectDirectory>misc</maven.multiModuleProjectDirectory>
   </properties>
   <dependencyManagement>
     <dependencies>
